@@ -13,32 +13,71 @@ void drawCircle ( ) {
 
     int index = 0;
     
-    glClear( GL_COLOR_BUFFER_BIT );
-    
-    glColor3d ( 1.0, .8, .6 );
-    
     glBegin ( GL_TRIANGLE_FAN );
+
+        glColor3d ( 1.0, .0, .0 );
 
         for ( index = 0; index < 360; index++ ) {
         
-            glVertex2f( .4 * cos ( ( float ) index ), .4 * sin ( ( float ) index ) );
+            glVertex2f( .68 * cos ( ( float ) index ), .68 * sin ( ( float ) index ) );
 
         }
 
-        glColor3d ( .0, .3, .6 );
-
     glEnd();
-    
+
     glFlush ();
 
 }
 
+void drawTriangle () {
+
+    glColor3d ( .0, .0, 1.0 );
+
+    glBegin ( GL_TRIANGLES );
+
+        glVertex2f ( 0, 0 );
+        glVertex2f ( -.8, 1 );
+        glVertex2f ( .8, 1 );
+
+    glEnd ();
+
+    glFlush ();
+
+}
+
+void render() {
+
+    glClearColor( .0f, .0f, .0f, .5f );
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    glOrtho( 0.0, 4.0, 0.0, 4.0, -1, 1 );
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+
+    // Draw shape one
+    glPushMatrix();
+        glTranslatef( 1.6, 1.8, .0 );
+        drawCircle ();
+    glPopMatrix();
+
+    // Draw shape two
+    glPushMatrix();
+        glTranslatef( 2.5, 2.5, .0 );
+        drawTriangle ();
+    glPopMatrix();
+
+    glutSwapBuffers();
+
+}
 
 int main ( int argc, char ** argv ) {
 
     Display mainDisplay ( argc, argv, "Circle GL2", GLUT_SINGLE, 680, 680, 100, 100 );
 
-    glutDisplayFunc ( drawCircle );
+    mainDisplay.render ( render );
 
     mainDisplay.loop ();
 

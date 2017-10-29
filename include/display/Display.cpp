@@ -11,7 +11,7 @@ Display::Display (
 
     int argc,
     char ** argv,
-    const std::string title,
+    const char * title,
     const unsigned int display_mode,
     const int WIDTH, const int HEIGHT,
     const int POSX, const int POSY
@@ -20,13 +20,13 @@ Display::Display (
 
     glutInit ( &argc, argv );
 
-    glutInitDisplayMode ( display_mode ? display_mode : this -> display_mode );
+    //glutInitDisplayMode ( display_mode ? display_mode : this -> display_mode );
 
     glutInitWindowSize ( WIDTH ? WIDTH : this -> WIDTH, HEIGHT ? HEIGHT : this -> HEIGHT );
 
     glutInitWindowPosition ( POSX ? POSX : this -> POSX, POSY ? POSY : this -> POSY );
 
-    glutCreateWindow ( "Baby GL" );
+    glutCreateWindow ( title ? title : "Baby GL" );
 
     this -> init ();
 
@@ -40,7 +40,7 @@ Display::~Display () {
 
 void Display::init () {
 
-    glClearColor ( 0.f, 0.f, 0.f, 0.f );
+    glClearColor ( 0.2f, 0.3f, 0.38f, 0.5f );
 
     glMatrixMode ( GL_PROJECTION );
 
@@ -51,5 +51,11 @@ void Display::init () {
 void Display::loop () {
 
     glutMainLoop ();
+
+}
+
+void Display::render ( void ( * callback ) ( void ) ) {
+
+    glutDisplayFunc ( callback );
 
 }

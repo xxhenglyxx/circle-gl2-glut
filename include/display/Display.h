@@ -13,7 +13,7 @@ class Display {
 
             int argc,
             char ** argv,
-            const std::string title,
+            const char * title,
             const unsigned int display_mode,
             const int WIDTH, const int HEIGHT,
             const int POSX, const int POSY
@@ -30,6 +30,8 @@ class Display {
             const GLenum mode
 
         );
+
+        void render ( void ( * callback ) ( void ) );
 
         void customInit ();
 
