@@ -9,7 +9,7 @@
 
 #include <display/Display.h>
 
-void drawCircle ( ) {
+void drawCircle ( const double radius ) {
 
     int index = 0;
     
@@ -19,29 +19,34 @@ void drawCircle ( ) {
 
         for ( index = 0; index < 360; index++ ) {
         
-            glVertex2f( .68 * cos ( ( float ) index ), .68 * sin ( ( float ) index ) );
+            glVertex2f( radius * cos ( ( float ) index ), radius * sin ( ( float ) index ) - .2 );
 
         }
 
     glEnd();
 
-    glFlush ();
-
 }
 
-void drawTriangle () {
+void drawTriangle (
+
+    const double c1x,
+    const double c1y,
+    const double c2x,
+    const double c2y,
+    const double c3x,
+    const double c3y
+
+) {
 
     glColor3d ( .0, .0, 1.0 );
 
     glBegin ( GL_TRIANGLES );
 
-        glVertex2f ( 0, 0 );
-        glVertex2f ( -.8, 1 );
-        glVertex2f ( .8, 1 );
+        glVertex2f ( c1x, c1y );
+        glVertex2f ( c2x, c2y );
+        glVertex2f ( c3x, c3y );
 
     glEnd ();
-
-    glFlush ();
 
 }
 
@@ -52,24 +57,13 @@ void render() {
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    glOrtho( 0.0, 4.0, 0.0, 4.0, -1, 1 );
+    //glOrtho( 0.0, 4.0, 0.0, 4.0, -1, 1 );
 
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
+    drawCircle ( .28 );
 
-    // Draw shape one
-    glPushMatrix();
-        glTranslatef( 1.6, 1.8, .0 );
-        drawCircle ();
-    glPopMatrix();
+    drawTriangle ( 0, .2, -.3, .6, .3, .6 );
 
-    // Draw shape two
-    glPushMatrix();
-        glTranslatef( 2.5, 2.5, .0 );
-        drawTriangle ();
-    glPopMatrix();
-
-    glutSwapBuffers();
+    glFlush (); // render
 
 }
 
