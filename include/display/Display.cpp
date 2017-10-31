@@ -20,7 +20,7 @@ Display::Display (
 
     glutInit ( &argc, argv );
 
-    //glutInitDisplayMode ( display_mode ? display_mode : this -> display_mode );
+    glutInitDisplayMode ( display_mode ? display_mode : this -> display_mode );
 
     glutInitWindowSize ( WIDTH ? WIDTH : this -> WIDTH, HEIGHT ? HEIGHT : this -> HEIGHT );
 
@@ -40,11 +40,9 @@ Display::~Display () {
 
 void Display::init () {
 
-    glClearColor ( 0.2f, 0.3f, 0.38f, 0.5f );
+    glClearColor( .0f, .0f, .0f, .5f );
 
-    glMatrixMode ( GL_PROJECTION );
-
-    glLoadIdentity ();
+    this -> setProjView ( -150, 150, -150, 150 );
 
 }
 
@@ -57,5 +55,20 @@ void Display::loop () {
 void Display::render ( void ( * callback ) ( void ) ) {
 
     glutDisplayFunc ( callback );
+
+}
+
+void Display::setProjView (
+
+    const float left,
+    const float right,
+    const float top,
+    const float bottom
+
+) {
+
+    glMatrixMode ( GL_PROJECTION );
+    glLoadIdentity ();
+    gluOrtho2D ( left, right, top, bottom );
 
 }

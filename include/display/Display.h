@@ -44,6 +44,14 @@ class Display {
         void setHeight ( const int HEIGHT );
         void setPosX ( const int POSX );
         void setPosY ( const int POSY );
+        void setProjView (
+
+            const float left,
+            const float right,
+            const float top,
+            const float bottom
+
+        );
 
         void init ();
 

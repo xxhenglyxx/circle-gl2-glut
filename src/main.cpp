@@ -9,7 +9,7 @@
 
 #include <display/Display.h>
 
-void drawCircle ( const double radius ) {
+void drawCircle ( const double radius, const double POSX, const double POSY ) {
 
     int index = 0;
     
@@ -19,7 +19,7 @@ void drawCircle ( const double radius ) {
 
         for ( index = 0; index < 360; index++ ) {
         
-            glVertex2f( radius * cos ( ( float ) index ), radius * sin ( ( float ) index ) - .2 );
+            glVertex2f( radius * cos ( ( float ) index ) + POSX , radius * sin ( ( float ) index ) + POSY );
 
         }
 
@@ -52,16 +52,11 @@ void drawTriangle (
 
 void render() {
 
-    glClearColor( .0f, .0f, .0f, .5f );
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    //glOrtho( 0.0, 4.0, 0.0, 4.0, -1, 1 );
+    drawCircle ( 30, -20, 20 );
 
-    drawCircle ( .28 );
-
-    drawTriangle ( 0, .2, -.3, .6, .3, .6 );
+    drawTriangle ( 100, 50, 50, 100, 100, 100 );
 
     glFlush (); // render
 
